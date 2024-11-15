@@ -111,7 +111,11 @@ public:
       const zstring& docUri,
       std::istream& xmlStream) = 0;
 
-  static void error( void *ctx, xmlErrorPtr );
+#if LIBXML_VERSION >= 21200
+  static void error(void *ctx, const xmlError *error);
+#else
+  static void error(void *ctx, xmlError *error);
+#endif
 };
 
 

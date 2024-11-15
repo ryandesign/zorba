@@ -100,7 +100,11 @@ XmlLoader::~XmlLoader()
 /*******************************************************************************
 
 ********************************************************************************/
-void XmlLoader::error(void* ctx, xmlErrorPtr error)
+#if LIBXML_VERSION >= 21200
+void XmlLoader::error(void *ctx, const xmlError *error)
+#else
+void XmlLoader::error(void *ctx, xmlError *error)
+#endif
 {
   if ( error->level == XML_ERR_NONE )
     return;
